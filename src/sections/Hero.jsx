@@ -59,7 +59,7 @@ export default function Hero() {
       onMouseMove={onMove}
       onMouseLeave={() => setHovering(false)}
       onClick={() => !showReel && setShowReel(true)}
-      className="relative h-screen w-full overflow-hidden md:cursor-none"
+      className={`relative h-screen w-full overflow-hidden ${showReel ? '' : 'md:cursor-none'}`}
     >
       {/* Parallax background layer — oversized so the drift/zoom never exposes edges */}
       <motion.div className="absolute -top-[15%] left-0 h-[130%] w-full will-change-transform" style={bgStyle}>
@@ -105,7 +105,7 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute left-0 top-0 z-30 -ml-14 -mt-14 hidden h-28 w-28 place-items-center rounded-full bg-ink/60 backdrop-blur-sm md:grid"
         style={{ x: sx, y: sy }}
-        animate={{ opacity: hovering ? 1 : 0, scale: hovering ? 1 : 0.5 }}
+        animate={{ opacity: hovering && !showReel ? 1 : 0, scale: hovering && !showReel ? 1 : 0.5 }}
         transition={{ duration: 0.25, ease: 'easeOut' }}
       >
         <span className="flex flex-col items-center gap-1">

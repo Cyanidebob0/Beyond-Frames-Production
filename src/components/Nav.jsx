@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { site } from '../data/site';
 import { cn } from '../lib/cn';
 
+// Convert a nav target into a React Router `to`. Hash targets ('/#services')
+// become a same-document client-side navigation so they NEVER trigger a full
+// page reload (which would remount the app and replay the loader).
+const toFor = (target) =>
+  target.startsWith('/#') ? { pathname: '/', hash: target.slice(1) } : target;
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -25,17 +31,11 @@ export default function Nav() {
           {site.name}
         </Link>
         <nav className="hidden gap-8 md:flex">
-          {site.nav.map((item) =>
-            item.target.startsWith('/#') ? (
-              <a key={item.label} href={item.target} className="ui-label text-bone hover:text-amber">
-                {item.label}
-              </a>
-            ) : (
-              <Link key={item.label} to={item.target} className="ui-label text-bone hover:text-amber">
-                {item.label}
-              </Link>
-            )
-          )}
+          {site.nav.map((item) => (
+            <Link key={item.label} to={toFor(item.target)} className="ui-label text-bone hover:text-amber">
+              {item.label}
+            </Link>
+          ))}
         </nav>
         <button
           className="ui-label text-bone md:hidden"
@@ -49,9 +49,14 @@ export default function Nav() {
       {open && (
         <nav className="flex flex-col gap-4 border-t border-line bg-ink px-6 py-6 md:hidden">
           {site.nav.map((item) => (
-            <a key={item.label} href={item.target} className="ui-label text-bone" onClick={() => setOpen(false)}>
+            <Link
+              key={item.label}
+              to={toFor(item.target)}
+              className="ui-label text-bone"
+              onClick={() => setOpen(false)}
+            >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
       )}

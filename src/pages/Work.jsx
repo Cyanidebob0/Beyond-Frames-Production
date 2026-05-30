@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import VideoPlayer from '../components/VideoPlayer';
+import Lightbox from '../components/Lightbox';
 import FrameDecor from '../components/FrameDecor';
 import { work, workCategories } from '../data/work';
 
@@ -58,11 +59,9 @@ export default function Work() {
       </div>
 
       {active && (
-        <div className="fixed inset-0 z-[90] grid place-items-center bg-ink/95 p-6" onClick={() => setActive(null)}>
-          <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-            <VideoPlayer youtubeId={active.youtubeId} thumb={active.thumb} title={active.title} />
-          </div>
-        </div>
+        <Lightbox onClose={() => setActive(null)} label={active.title}>
+          <VideoPlayer youtubeId={active.youtubeId} thumb={active.thumb} title={active.title} />
+        </Lightbox>
       )}
     </section>
   );

@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import Loader from './components/Loader';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Work from './pages/Work';
+
+const Home = lazy(() => import('./pages/Home'));
+const Work = lazy(() => import('./pages/Work'));
 
 // Scrolls to #hash targets when navigating; scrolls to top otherwise.
 function ScrollManager() {
@@ -34,10 +35,12 @@ export default function App() {
       <ScrollManager />
       <Nav />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/work" element={<Work />} />
-        </Routes>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/work" element={<Work />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </>

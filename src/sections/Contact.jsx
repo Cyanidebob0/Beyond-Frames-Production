@@ -74,11 +74,11 @@ export default function Contact() {
         </form>
 
         <div className="space-y-4">
-          <a href={`https://wa.me/${site.phoneIntl}`} className="flex items-center justify-between border border-line px-5 py-4 hover:border-amber">
+          <a href={`https://wa.me/${site.phoneIntl}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between border border-line px-5 py-4 hover:border-amber">
             <span className="font-display text-xl text-bone">WhatsApp</span>
             <span className="ui-label">{site.phone}</span>
           </a>
-          <a href={site.socials.instagram} className="flex items-center justify-between border border-line px-5 py-4 hover:border-amber">
+          <a href={site.socials.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between border border-line px-5 py-4 hover:border-amber">
             <span className="font-display text-xl text-bone">Instagram</span>
             <span className="ui-label">@beyondframes</span>
           </a>

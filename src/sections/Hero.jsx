@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import VideoLoop from '../components/VideoLoop';
 import VideoPlayer from '../components/VideoPlayer';
+import Lightbox from '../components/Lightbox';
 import FrameDecor from '../components/FrameDecor';
 import { site } from '../data/site';
 
@@ -49,11 +50,9 @@ export default function Hero() {
       </div>
 
       {showReel && (
-        <div className="fixed inset-0 z-[90] grid place-items-center bg-ink/95 p-6" onClick={() => setShowReel(false)}>
-          <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-            <VideoPlayer youtubeId={site.showreelYouTubeId} thumb="https://picsum.photos/seed/bf-reel/1280/720" title="Showreel" />
-          </div>
-        </div>
+        <Lightbox onClose={() => setShowReel(false)} label="Showreel">
+          <VideoPlayer youtubeId={site.showreelYouTubeId} thumb="https://picsum.photos/seed/bf-reel/1280/720" title="Showreel" />
+        </Lightbox>
       )}
     </section>
   );

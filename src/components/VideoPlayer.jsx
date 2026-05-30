@@ -34,12 +34,19 @@ function HlsVideo({ src, title }) {
   );
 }
 
+// Accepts a raw Google Drive file ID or any Drive share URL and returns the ID.
+export function driveFileId(value) {
+  if (!value) return null;
+  const m = value.match(/\/d\/([^/]+)/) || value.match(/[?&]id=([^&]+)/);
+  return m ? m[1] : value;
+}
+
 // Lazy facade for long-form video. Renders a styled thumbnail; the real player
-// (YouTube iframe, HLS stream, or direct mp4) mounts only on click.
-// Source precedence: youtubeId → hls (.m3u8) → mp4 (direct URL).
-export default function VideoPlayer({ youtubeId, hls, mp4, thumb, title = 'Play video', className = '' }) {
+// (YouTube iframe, Google Drive embed, HLS stream, or direct mp4) mounts only
+// on click. Source precedence: youtubeId → drive → hls (.m3u8) → mp4 (URL).
+export default function VideoPlayer({ youtubeId, drive, hls, mp4, thumb, title = 'Play video', className = '' }) {
   const [playing, setPlaying] = useState(false);
-  const hasSource = Boolean(youtubeId || hls || mp4);
+  const hasSource = Boolean(youtubeId || drive || hls || mp4);
 
   if (playing && hasSource) {
     return (
@@ -50,6 +57,14 @@ export default function VideoPlayer({ youtubeId, hls, mp4, thumb, title = 'Play 
             src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`}
             title={title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : drive ? (
+          <iframe
+            className="absolute inset-0 h-full w-full"
+            src={`https://drive.google.com/file/d/${driveFileId(drive)}/preview`}
+            title={title}
+            allow="autoplay"
             allowFullScreen
           />
         ) : hls ? (

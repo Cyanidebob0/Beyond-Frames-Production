@@ -1,7 +1,19 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import VideoPlayer from './VideoPlayer';
+import VideoPlayer, { driveFileId } from './VideoPlayer';
+
+describe('driveFileId', () => {
+  it('extracts the id from a /file/d/ share URL', () => {
+    expect(driveFileId('https://drive.google.com/file/d/1AbCdEf/view?usp=sharing')).toBe('1AbCdEf');
+  });
+  it('extracts the id from an open?id= URL', () => {
+    expect(driveFileId('https://drive.google.com/open?id=9XyZ')).toBe('9XyZ');
+  });
+  it('returns a raw id unchanged', () => {
+    expect(driveFileId('1AbCdEf')).toBe('1AbCdEf');
+  });
+});
 
 describe('VideoPlayer (lazy facade)', () => {
   it('shows thumbnail and NO iframe before click', () => {
@@ -32,6 +44,14 @@ describe('VideoPlayer (lazy facade)', () => {
     await userEvent.click(screen.getByRole('button', { name: /play/i }));
     expect(document.querySelector('iframe')).toBeNull();
     expect(document.querySelector('video')).not.toBeNull();
+  });
+
+  it('mounts a Google Drive preview iframe after click', async () => {
+    render(<VideoPlayer drive="https://drive.google.com/file/d/1AbCdEf/view" thumb="/t.jpg" title="Film" />);
+    await userEvent.click(screen.getByRole('button', { name: /play/i }));
+    const iframe = document.querySelector('iframe');
+    expect(iframe).not.toBeNull();
+    expect(iframe.getAttribute('src')).toBe('https://drive.google.com/file/d/1AbCdEf/preview');
   });
 
   it('renders no play affordance when there is no source', () => {

@@ -54,7 +54,7 @@ export default function WorkPreview() {
 
       {active && (
         <Lightbox onClose={() => setActive(null)} label={active.title}>
-          <VideoPlayer youtubeId={active.youtubeId} hls={active.hls} mp4={active.mp4} thumb={active.thumb} title={active.title} />
+          <VideoPlayer youtubeId={active.youtubeId} drive={active.drive} hls={active.hls} mp4={active.mp4} thumb={active.thumb} title={active.title} />
         </Lightbox>
       )}
     </section>

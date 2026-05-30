@@ -76,7 +76,14 @@ export default function Hero() {
 
       {showReel && (
         <Lightbox onClose={() => setShowReel(false)} label="Showreel">
-          <VideoPlayer youtubeId={site.showreelYouTubeId} thumb="https://picsum.photos/seed/bf-reel/1280/720" title="Showreel" />
+          <VideoPlayer
+            youtubeId={site.showreel?.youtubeId}
+            drive={site.showreel?.drive}
+            hls={site.showreel?.hls}
+            mp4={site.showreel?.mp4}
+            thumb="/loops/hero-poster.jpg"
+            title="Showreel"
+          />
         </Lightbox>
       )}
     </section>

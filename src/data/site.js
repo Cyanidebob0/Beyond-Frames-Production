@@ -9,7 +9,10 @@ export const site = {
   phoneIntl: '917676876134', // for wa.me / tel
   email: 'g1234jeevan@gmail.com',
   address: '174/1A, Maruthi Nagar, Chikkabanavara PO, Bangalore-90',
-  showreelYouTubeId: 'ScMzIvxBSi4', // placeholder — replace with real showreel
+  // Hero play-button showreel. Defaults to the local hero clip so it's your own
+  // footage. Swap to your reel anytime, e.g. { drive: '<share link>' } or
+  // { youtubeId: 'XXXX' } / { hls: '...' } / { mp4: '...' }.
+  showreel: { mp4: '/loops/hero.mp4' },
   socials: {
     instagram: 'https://instagram.com/', // TODO: real handle
     linkedin: 'https://linkedin.com/',    // TODO: real handle

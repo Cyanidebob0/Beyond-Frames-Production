@@ -34,7 +34,7 @@ function Panel({ s, i, progress }) {
     >
       <VideoLoop
         src={s.loop}
-        poster={`https://picsum.photos/seed/bf-svc-${s.id}/1600/900`}
+        poster={`/services/${s.id}.jpg`}
         className="absolute inset-0 h-full w-full"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/20" />
@@ -69,7 +69,7 @@ export default function Services() {
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {services.map((s, i) => (
               <article key={s.id} className="relative h-72 overflow-hidden border border-line">
-                <VideoLoop src={s.loop} poster={`https://picsum.photos/seed/bf-svc-${s.id}/800/500`} className="absolute inset-0 h-full w-full opacity-60" />
+                <VideoLoop src={s.loop} poster={`/services/${s.id}.jpg`} className="absolute inset-0 h-full w-full opacity-60" />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
                 <FrameDecor color="border-white/20" timecode={`${pad(i + 1)} / ${pad(count)}`} />
                 <div className="absolute bottom-0 p-7">

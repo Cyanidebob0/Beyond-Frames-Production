@@ -33,7 +33,7 @@ export default function Hero() {
       <motion.div className="absolute -top-[15%] left-0 h-[130%] w-full will-change-transform" style={bgStyle}>
         <VideoLoop
           src="/loops/hero.mp4"
-          poster="https://picsum.photos/seed/bf-hero/1600/900?grayscale"
+          poster="/loops/hero-poster.jpg"
           className="absolute inset-0 h-full w-full"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-teal-900/30 via-ink/40 to-ink/85" />

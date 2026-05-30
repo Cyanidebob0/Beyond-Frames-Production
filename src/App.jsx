@@ -1,8 +1,45 @@
+import { useEffect, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { useSmoothScroll } from './hooks/useSmoothScroll';
+import Loader from './components/Loader';
+import Nav from './components/Nav';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Work from './pages/Work';
+
+// Scrolls to #hash targets when navigating; scrolls to top otherwise.
+function ScrollManager() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+  return null;
+}
+
 export default function App() {
+  const [loaded, setLoaded] = useState(false);
+  useSmoothScroll();
+
   return (
-    <div className="min-h-screen grid place-items-center gap-3">
-      <h1 className="h-display text-6xl">Beyond Frames</h1>
-      <p className="ui-label">REC ● 4K</p>
-    </div>
+    <>
+      <AnimatePresence>{!loaded && <Loader onDone={() => setLoaded(true)} />}</AnimatePresence>
+      <ScrollManager />
+      <Nav />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/work" element={<Work />} />
+        </Routes>
+      </main>
+      <Footer />
+    </>
   );
 }

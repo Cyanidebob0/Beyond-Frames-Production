@@ -11,11 +11,21 @@ const pad = (n) => String(n).padStart(2, '0');
 // the right and stacks ON TOP, while the one beneath shrinks + dims (peeking through).
 function Panel({ s, i, progress }) {
   const seg = 1 / (count - 1);
-  // Slide in over this panel's segment (panel 0 is the base and stays put).
-  const x = useTransform(progress, [(i - 1) * seg, i * seg], ['100%', '0%'], { clamp: true });
-  // Shrink + dim while the NEXT panel slides over this one.
-  const scale = useTransform(progress, [i * seg, (i + 1) * seg], [1, 0.92], { clamp: true });
-  const dim = useTransform(progress, [i * seg, (i + 1) * seg], [0, 0.6], { clamp: true });
+  const isFirst = i === 0;
+  const isLast = i === count - 1;
+  // All input ranges MUST stay within [0,1] (framer drives these via the native
+  // ScrollTimeline, which rejects offsets outside that range).
+  // Slide in over this panel's segment; the first panel is the base and stays put.
+  const x = useTransform(
+    progress,
+    isFirst ? [0, seg] : [(i - 1) * seg, i * seg],
+    isFirst ? ['0%', '0%'] : ['100%', '0%'],
+    { clamp: true }
+  );
+  // Shrink + dim while the NEXT panel slides over this one (the last panel has none).
+  const coverRange = isLast ? [1 - seg, 1] : [i * seg, (i + 1) * seg];
+  const scale = useTransform(progress, coverRange, isLast ? [1, 1] : [1, 0.92], { clamp: true });
+  const dim = useTransform(progress, coverRange, isLast ? [0, 0] : [0, 0.6], { clamp: true });
 
   return (
     <motion.article

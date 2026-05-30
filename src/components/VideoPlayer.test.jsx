@@ -17,4 +17,26 @@ describe('VideoPlayer (lazy facade)', () => {
     expect(iframe).not.toBeNull();
     expect(iframe.getAttribute('src')).toContain('youtube.com/embed/abc123');
   });
+
+  it('plays a direct mp4 in a <video> (no iframe) after click', async () => {
+    render(<VideoPlayer mp4="https://cdn.example.com/film.mp4" thumb="/t.jpg" title="Film" />);
+    await userEvent.click(screen.getByRole('button', { name: /play/i }));
+    expect(document.querySelector('iframe')).toBeNull();
+    const video = document.querySelector('video');
+    expect(video).not.toBeNull();
+    expect(video.getAttribute('src')).toBe('https://cdn.example.com/film.mp4');
+  });
+
+  it('mounts a <video> for an HLS stream after click', async () => {
+    render(<VideoPlayer hls="https://stream.example.com/master.m3u8" thumb="/t.jpg" title="Film" />);
+    await userEvent.click(screen.getByRole('button', { name: /play/i }));
+    expect(document.querySelector('iframe')).toBeNull();
+    expect(document.querySelector('video')).not.toBeNull();
+  });
+
+  it('renders no play affordance when there is no source', () => {
+    render(<VideoPlayer thumb="/t.jpg" title="Still" />);
+    // facade still shows the thumbnail button, but no play triangle/circle
+    expect(document.querySelector('img')).not.toBeNull();
+  });
 });

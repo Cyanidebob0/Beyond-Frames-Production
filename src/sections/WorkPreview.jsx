@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import VideoPlayer from '../components/VideoPlayer';
 import Lightbox from '../components/Lightbox';
-import { work } from '../data/work';
+import { work, hasVideo } from '../data/work';
 
 export default function WorkPreview() {
   const [active, setActive] = useState(null); // work item being played
@@ -26,7 +26,7 @@ export default function WorkPreview() {
           <motion.button
             key={item.id}
             type="button"
-            onClick={() => item.youtubeId && setActive(item)}
+            onClick={() => hasVideo(item) && setActive(item)}
             className="group relative aspect-[4/5] overflow-hidden border border-line"
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -39,7 +39,7 @@ export default function WorkPreview() {
               <span className="ui-label text-amber">{item.category}</span>
               <span className="block font-display text-lg text-bone">{item.title}</span>
             </span>
-            {item.youtubeId && (
+            {hasVideo(item) && (
               <span className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/70">
                 <span className="ml-0.5 border-y-[6px] border-l-[10px] border-y-transparent border-l-white" />
               </span>
@@ -54,7 +54,7 @@ export default function WorkPreview() {
 
       {active && (
         <Lightbox onClose={() => setActive(null)} label={active.title}>
-          <VideoPlayer youtubeId={active.youtubeId} thumb={active.thumb} title={active.title} />
+          <VideoPlayer youtubeId={active.youtubeId} hls={active.hls} mp4={active.mp4} thumb={active.thumb} title={active.title} />
         </Lightbox>
       )}
     </section>

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import VideoPlayer from '../components/VideoPlayer';
 import Lightbox from '../components/Lightbox';
 import FrameDecor from '../components/FrameDecor';
-import { work, workCategories } from '../data/work';
+import { work, workCategories, hasVideo } from '../data/work';
 
 export default function Work() {
   const [filter, setFilter] = useState('all');
@@ -41,7 +41,7 @@ export default function Work() {
               key={item.id}
               layout
               type="button"
-              onClick={() => item.youtubeId && setActive(item)}
+              onClick={() => hasVideo(item) && setActive(item)}
               className="group relative aspect-[4/5] overflow-hidden border border-line"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -60,7 +60,7 @@ export default function Work() {
 
       {active && (
         <Lightbox onClose={() => setActive(null)} label={active.title}>
-          <VideoPlayer youtubeId={active.youtubeId} thumb={active.thumb} title={active.title} />
+          <VideoPlayer youtubeId={active.youtubeId} hls={active.hls} mp4={active.mp4} thumb={active.thumb} title={active.title} />
         </Lightbox>
       )}
     </section>

@@ -7,9 +7,21 @@ import { services } from '../data/services';
 const count = services.length;
 const pad = (n) => String(n).padStart(2, '0');
 
-function Panel({ s, i }) {
+// Each panel is pinned full-screen. As you scroll, the next panel slides in from
+// the right and stacks ON TOP, while the one beneath shrinks + dims (peeking through).
+function Panel({ s, i, progress }) {
+  const seg = 1 / (count - 1);
+  // Slide in over this panel's segment (panel 0 is the base and stays put).
+  const x = useTransform(progress, [(i - 1) * seg, i * seg], ['100%', '0%'], { clamp: true });
+  // Shrink + dim while the NEXT panel slides over this one.
+  const scale = useTransform(progress, [i * seg, (i + 1) * seg], [1, 0.92], { clamp: true });
+  const dim = useTransform(progress, [i * seg, (i + 1) * seg], [0, 0.6], { clamp: true });
+
   return (
-    <article className="relative h-full w-screen flex-shrink-0 overflow-hidden">
+    <motion.article
+      style={{ x, scale, zIndex: i }}
+      className="absolute inset-0 h-full w-full overflow-hidden border-l border-line/40 shadow-2xl shadow-black/50"
+    >
       <VideoLoop
         src={s.loop}
         poster={`https://picsum.photos/seed/bf-svc-${s.id}/1600/900`}
@@ -22,7 +34,9 @@ function Panel({ s, i }) {
         <h3 className="h-display mt-4 text-5xl text-bone md:text-8xl">{s.title}</h3>
         <p className="mt-5 max-w-xl text-mute md:text-lg">{s.blurb}</p>
       </div>
-    </article>
+      {/* Darkens this panel as the next one stacks over it */}
+      <motion.div className="absolute inset-0 bg-ink" style={{ opacity: dim }} />
+    </motion.article>
   );
 }
 
@@ -34,10 +48,8 @@ export default function Services() {
     target: sectionRef,
     offset: ['start start', 'end end'],
   });
-  // Translate the 4-panel track (count * 100vw wide) sideways as the tall section scrolls.
-  const x = useTransform(scrollYProgress, [0, 1], ['0vw', `-${(count - 1) * 100}vw`]);
 
-  // Reduced-motion / no-JS-friendly fallback: a simple vertical stack, no scroll hijack.
+  // Reduced-motion / no-hijack fallback: a simple vertical stack.
   if (reduce) {
     return (
       <section id="services" className="relative bg-panel py-24">
@@ -63,14 +75,12 @@ export default function Services() {
   }
 
   return (
-    // Tall section creates the scroll distance; the inner layer pins while the track slides.
+    // Tall section creates the scroll distance; the inner layer pins while panels stack.
     <section id="services" ref={sectionRef} className="relative bg-panel" style={{ height: `${count * 100}vh` }}>
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div className="flex h-full" style={{ x }}>
-          {services.map((s, i) => (
-            <Panel key={s.id} s={s} i={i} />
-          ))}
-        </motion.div>
+      <div className="sticky top-0 h-screen overflow-hidden">
+        {services.map((s, i) => (
+          <Panel key={s.id} s={s} i={i} progress={scrollYProgress} />
+        ))}
       </div>
     </section>
   );

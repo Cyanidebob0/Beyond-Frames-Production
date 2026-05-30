@@ -8,6 +8,12 @@
   html { scroll-behavior: auto; }
   body { @apply bg-ink text-bone font-body antialiased; }
   ::selection { @apply bg-amber text-ink; }
+
+  :focus-visible { outline: 2px solid #eaa64e; outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
 }
 
 @layer components {

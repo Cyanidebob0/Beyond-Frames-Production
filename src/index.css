@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Oswald:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: auto; }
+  body { @apply bg-ink text-bone font-body antialiased; }
+  ::selection { @apply bg-amber text-ink; }
+}
+
+@layer components {
+  .ui-label { @apply font-mono text-[10px] tracking-ui uppercase text-mute; }
+  .h-display { @apply font-display uppercase leading-[0.9] tracking-tight; }
+}

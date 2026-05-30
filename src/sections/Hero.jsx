@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from 'framer-motion';
 import VideoLoop from '../components/VideoLoop';
 import VideoPlayer from '../components/VideoPlayer';
 import Lightbox from '../components/Lightbox';
@@ -114,18 +114,20 @@ export default function Hero() {
         </span>
       </motion.div>
 
-      {showReel && (
-        <Lightbox onClose={() => setShowReel(false)} label="Showreel">
-          <VideoPlayer
-            youtubeId={site.showreel?.youtubeId}
-            drive={site.showreel?.drive}
-            hls={site.showreel?.hls}
-            mp4={site.showreel?.mp4}
-            thumb="/loops/hero-poster.jpg"
-            title="Showreel"
-          />
-        </Lightbox>
-      )}
+      <AnimatePresence>
+        {showReel && (
+          <Lightbox key="showreel" onClose={() => setShowReel(false)} label="Showreel">
+            <VideoPlayer
+              youtubeId={site.showreel?.youtubeId}
+              drive={site.showreel?.drive}
+              hls={site.showreel?.hls}
+              mp4={site.showreel?.mp4}
+              thumb="/loops/hero-poster.jpg"
+              title="Showreel"
+            />
+          </Lightbox>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

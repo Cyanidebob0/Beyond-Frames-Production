@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import VideoPlayer from '../components/VideoPlayer';
 import Lightbox from '../components/Lightbox';
 import { work, hasVideo } from '../data/work';
@@ -52,11 +52,13 @@ export default function WorkPreview() {
         View full portfolio →
       </Link>
 
-      {active && (
-        <Lightbox onClose={() => setActive(null)} label={active.title}>
-          <VideoPlayer youtubeId={active.youtubeId} drive={active.drive} hls={active.hls} mp4={active.mp4} thumb={active.thumb} title={active.title} />
-        </Lightbox>
-      )}
+      <AnimatePresence>
+        {active && (
+          <Lightbox key={active.id} onClose={() => setActive(null)} label={active.title}>
+            <VideoPlayer youtubeId={active.youtubeId} drive={active.drive} hls={active.hls} mp4={active.mp4} thumb={active.thumb} title={active.title} />
+          </Lightbox>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

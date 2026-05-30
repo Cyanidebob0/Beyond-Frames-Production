@@ -23,15 +23,16 @@ export default function Lightbox({ onClose, label = 'Media viewer', children }) 
       aria-label={label}
       onClick={onClose}
     >
-      {/* Darkening backdrop — fades to black FIRST */}
+      {/* Darkening backdrop — fades to black FIRST on open, fades out LAST on close */}
       <motion.div
         className="absolute inset-0 bg-ink/95"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        exit={{ opacity: 0, transition: { delay: 0.45, duration: 0.4, ease: 'easeIn' } }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
       />
 
-      {/* Close — fades in once the player has opened */}
+      {/* Close — fades in once the player has opened, out immediately on close */}
       <motion.button
         type="button"
         onClick={onClose}
@@ -39,12 +40,13 @@ export default function Lightbox({ onClose, label = 'Media viewer', children }) 
         className="ui-label absolute right-6 top-6 z-20 text-bone hover:text-amber"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        exit={{ opacity: 0, transition: { duration: 0.15 } }}
         transition={{ delay: 1, duration: 0.3 }}
       >
         Close ✕
       </motion.button>
 
-      {/* Player — AFTER the backdrop is black, opens from a thin center line and extends top & bottom */}
+      {/* Player — opens from a thin center line and extends top & bottom; collapses back FIRST on close */}
       <motion.div
         ref={ref}
         tabIndex={-1}
@@ -52,6 +54,7 @@ export default function Lightbox({ onClose, label = 'Media viewer', children }) 
         onClick={(e) => e.stopPropagation()}
         initial={{ clipPath: 'inset(50% 0% 50% 0%)' }}
         animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+        exit={{ clipPath: 'inset(50% 0% 50% 0%)', transition: { duration: 0.45, ease: [0.83, 0, 0.17, 1] } }}
         transition={{ delay: 0.4, duration: 0.6, ease: [0.83, 0, 0.17, 1] }}
       >
         {children}

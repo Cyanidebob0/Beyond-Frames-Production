@@ -42,7 +42,7 @@ export default function Work() {
               key={item.id}
               layout
               type="button"
-              onClick={() => hasVideo(item) && setActive(item)}
+              onClick={() => setActive(item)}
               className={`group relative aspect-[4/5] overflow-hidden border border-line ${i % 2 === 1 ? 'md:mt-14' : ''}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -68,7 +68,11 @@ export default function Work() {
       <AnimatePresence>
         {active && (
           <Lightbox key={active.id} onClose={() => setActive(null)} label={active.title}>
-            <VideoPlayer youtubeId={active.youtubeId} drive={active.drive} hls={active.hls} mp4={active.mp4} thumb={active.thumb} title={active.title} />
+            {hasVideo(active) ? (
+              <VideoPlayer youtubeId={active.youtubeId} drive={active.drive} hls={active.hls} mp4={active.mp4} thumb={active.thumb} title={active.title} />
+            ) : (
+              <img src={active.thumb} alt={active.title} className="mx-auto max-h-[82vh] w-full object-contain" />
+            )}
           </Lightbox>
         )}
       </AnimatePresence>

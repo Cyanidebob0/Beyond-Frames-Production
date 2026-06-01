@@ -70,7 +70,9 @@ export default function VideoPlayer({ youtubeId, drive, hls, mp4, thumb, title =
         ) : hls ? (
           <HlsVideo src={hls} title={title} />
         ) : (
-          <video className="absolute inset-0 h-full w-full" src={mp4} title={title} controls autoPlay playsInline />
+          // object-cover fills the 16:9 frame and crops any letterbox baked into
+          // the source (e.g. a 16:9 film exported inside a taller canvas).
+          <video className="absolute inset-0 h-full w-full object-cover" src={mp4} title={title} controls autoPlay playsInline />
         )}
       </div>
     );

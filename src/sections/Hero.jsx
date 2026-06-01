@@ -122,7 +122,7 @@ export default function Hero() {
               drive={site.showreel?.drive}
               hls={site.showreel?.hls}
               mp4={site.showreel?.mp4}
-              thumb="/loops/hero-poster.jpg"
+              thumb="/work/pre-wedding.jpg"
               title="Showreel"
             />
           </Lightbox>

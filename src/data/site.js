@@ -12,7 +12,7 @@ export const site = {
   // Hero play-button showreel. Defaults to the local hero clip so it's your own
   // footage. Swap to your reel anytime, e.g. { drive: '<share link>' } or
   // { youtubeId: 'XXXX' } / { hls: '...' } / { mp4: '...' }.
-  showreel: { mp4: '/loops/hero.mp4' },
+  showreel: { mp4: '/work/pre-wedding.mp4' },
   socials: {
     instagram: 'https://instagram.com/', // TODO: real handle
     linkedin: 'https://linkedin.com/',    // TODO: real handle
@@ -22,6 +22,7 @@ export const site = {
   nav: [
     { label: 'Work', target: '/work' },
     { label: 'Services', target: '/#services' },
+    { label: 'Gallery', target: '/#gallery' },
     { label: 'About', target: '/#about' },
     { label: 'Contact', target: '/#contact' },
   ],

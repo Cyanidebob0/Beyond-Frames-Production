@@ -8,18 +8,17 @@
 //   mp4:       'https://.../film.mp4'          // direct file (any CDN / object storage)
 // Photo-only items just have a `thumb` and no source.
 //
-// The youtubeId values below are placeholders so the gallery is interactive in dev.
-// To use a Google Drive film: remove `youtubeId` and add
-//   drive: 'https://drive.google.com/file/d/FILE_ID/view'   (or just the FILE_ID)
+// TODO (videos): every film below currently plays the real self-hosted teaser clip
+// (/work/teaser.mp4). When the full films are uploaded to Google Drive, replace each
+// `mp4: '/work/teaser.mp4'` with `drive: '<share link>'` to stream the real film.
 export const work = [
-  { id: 'pramood-reeny', title: 'Pramood & Reeny', category: 'films', youtubeId: 'ScMzIvxBSi4', thumb: 'https://picsum.photos/seed/bf-pramood/800/1000' },
-  { id: 'sharath-wedding', title: 'Sharath Wedding', category: 'films', youtubeId: 'aqz-KE-bpKQ', thumb: 'https://picsum.photos/seed/bf-sharathw/800/1000' },
-  { id: 'sharath-reception', title: 'Sharath Reception', category: 'films', youtubeId: 'ScMzIvxBSi4', thumb: 'https://picsum.photos/seed/bf-reception/800/1000' },
-  { id: 'save-the-date', title: 'Save the Date', category: 'prewedding', youtubeId: 'aqz-KE-bpKQ', thumb: 'https://picsum.photos/seed/bf-savedate/800/1000' },
-  { id: 'pre-wedding', title: 'Pre-Wedding Film', category: 'prewedding', youtubeId: 'ScMzIvxBSi4', thumb: 'https://picsum.photos/seed/bf-prewed/800/1000' },
-  { id: 'sharath-reel', title: 'Sharath Reel', category: 'films', youtubeId: 'aqz-KE-bpKQ', thumb: 'https://picsum.photos/seed/bf-reel/800/1000' },
-  { id: 'photo-1', title: 'Sunlit Vows', category: 'photography', thumb: 'https://picsum.photos/seed/bf-photo1/800/1000' },
-  { id: 'photo-2', title: 'Golden Hour', category: 'photography', thumb: 'https://picsum.photos/seed/bf-photo2/800/1000' },
+  { id: 'pramoodh-reeny', title: 'Pramoodh & Reeny', category: 'films', mp4: '/work/pramoodh-reeny.mp4', thumb: '/work/pramoodh-reeny.jpg' },
+  { id: 'sharath-wedding', title: 'Sharath Wedding', category: 'films', mp4: '/work/sharath-wedding.mp4', thumb: '/work/sharath-wedding.jpg' },
+  { id: 'sharath-reception', title: 'Sharath Reception', category: 'films', mp4: '/work/sharath-reception.mp4', thumb: '/work/sharath-reception.jpg' },
+  { id: 'pre-wedding', title: 'Pre-Wedding', category: 'prewedding', mp4: '/work/pre-wedding.mp4', thumb: '/work/pre-wedding.jpg' },
+  { id: 'sharath-reel', title: 'Sharath Reel', category: 'films', mp4: '/work/teaser.mp4', thumb: '/work/sharath-reel.jpg' },
+  { id: 'photo-1', title: 'Sunlit Vows', category: 'photography', thumb: '/work/photo-sunlit.jpg' },
+  { id: 'photo-2', title: 'Golden Hour', category: 'photography', thumb: '/work/photo-golden.jpg' },
 ];
 
 // True when an item has a playable video source of any kind.

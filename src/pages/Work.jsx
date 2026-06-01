@@ -35,20 +35,27 @@ export default function Work() {
           ))}
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3">
+        {/* Staggered editorial grid — alternating offsets break the rigid rows */}
+        <div className="mt-12 grid grid-cols-2 items-start gap-4 md:grid-cols-3 md:gap-6">
           {items.map((item, i) => (
             <motion.button
               key={item.id}
               layout
               type="button"
               onClick={() => hasVideo(item) && setActive(item)}
-              className="group relative aspect-[4/5] overflow-hidden border border-line"
+              className={`group relative aspect-[4/5] overflow-hidden border border-line ${i % 2 === 1 ? 'md:mt-14' : ''}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: i * 0.04 }}
             >
-              <img src={item.thumb} alt={item.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-80 transition group-hover:scale-105 group-hover:opacity-100" />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/90 to-transparent" />
+              <img src={item.thumb} alt={item.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105 group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
+              <span className="pointer-events-none absolute left-3 top-2 font-display text-4xl leading-none text-white/15">{String(i + 1).padStart(2, '0')}</span>
+              {hasVideo(item) && (
+                <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-white/70 bg-ink/30 backdrop-blur-sm transition group-hover:scale-110 group-hover:border-amber">
+                  <span className="ml-0.5 border-y-[6px] border-l-[10px] border-y-transparent border-l-white transition group-hover:border-l-amber" />
+                </span>
+              )}
               <span className="absolute bottom-4 left-4 text-left">
                 <span className="ui-label text-amber">{item.category}</span>
                 <span className="block font-display text-lg text-bone">{item.title}</span>

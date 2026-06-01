@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import VideoLoop from '../components/VideoLoop';
 import FrameDecor from '../components/FrameDecor';
@@ -50,9 +50,24 @@ function Panel({ s, i, progress }) {
   );
 }
 
+// Per-panel scroll distance (in vh). Smaller = panels advance with less scrolling,
+// i.e. the horizontal stacking feels faster. Mobile gets a shorter distance.
+function usePanelVh() {
+  const [vh, setVh] = useState(100);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const apply = () => setVh(mq.matches ? 55 : 100);
+    apply();
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, []);
+  return vh;
+}
+
 export default function Services() {
   const sectionRef = useRef(null);
   const reduce = useReducedMotion();
+  const panelVh = usePanelVh();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -86,7 +101,7 @@ export default function Services() {
 
   return (
     // Tall section creates the scroll distance; the inner layer pins while panels stack.
-    <section id="services" ref={sectionRef} className="relative bg-panel" style={{ height: `${count * 100}vh` }}>
+    <section id="services" ref={sectionRef} className="relative bg-panel" style={{ height: `${count * panelVh}vh` }}>
       <div className="sticky top-0 h-screen overflow-hidden">
         {services.map((s, i) => (
           <Panel key={s.id} s={s} i={i} progress={scrollYProgress} />

@@ -6,7 +6,17 @@ export function useSmoothScroll() {
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
-    const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    // Touch devices don't get Lenis smoothing by default (only the wheel does),
+    // so the scroll-driven sections feel snappier/jerkier on phones. Enable
+    // syncTouch there for a softer, interpolated finger-scroll.
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    const lenis = new Lenis({
+      duration: 1.1,
+      smoothWheel: true,
+      syncTouch: isTouch,
+      syncTouchLerp: 0.08, // lower = smoother/heavier touch follow
+      touchInertiaMultiplier: 18,
+    });
     let raf;
     const loop = (t) => {
       lenis.raf(t);

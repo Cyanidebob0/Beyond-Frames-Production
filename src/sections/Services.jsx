@@ -30,7 +30,7 @@ function Panel({ s, i, progress }) {
   return (
     <motion.article
       style={{ x, scale, zIndex: i }}
-      className="absolute inset-0 h-full w-full overflow-hidden border-l border-line/40 shadow-2xl shadow-black/50"
+      className="absolute inset-0 h-full w-full overflow-hidden border-l border-line/40 shadow-2xl shadow-black/50 will-change-transform [transform:translateZ(0)]"
     >
       <VideoLoop
         src={s.loop}

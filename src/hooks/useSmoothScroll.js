@@ -6,16 +6,15 @@ export function useSmoothScroll() {
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
-    // Touch devices don't get Lenis smoothing by default (only the wheel does),
-    // so the scroll-driven sections feel snappier/jerkier on phones. Enable
-    // syncTouch there for a softer, interpolated finger-scroll.
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    // Smooth only the desktop wheel. We deliberately DON'T enable syncTouch:
+    // its JS-interpolated touch scrolling fights the pinned (position: sticky)
+    // Services section and framer's scroll-linked transforms, causing visible
+    // jitter on phones. Native touch scrolling is smooth and lets the
+    // scroll-driven animations follow it cleanly.
     const lenis = new Lenis({
       duration: 1.1,
       smoothWheel: true,
-      syncTouch: isTouch,
-      syncTouchLerp: 0.08, // lower = smoother/heavier touch follow
-      touchInertiaMultiplier: 18,
+      syncTouch: false,
     });
     let raf;
     const loop = (t) => {

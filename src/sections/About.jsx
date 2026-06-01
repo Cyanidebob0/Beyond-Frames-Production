@@ -7,9 +7,9 @@ const reveal = {
 };
 
 const stats = [
-  { n: '120+', l: 'Weddings filmed' },
-  { n: '6', l: 'Years behind the lens' },
-  { n: '15+', l: 'Cities covered' },
+  { n: '30+', l: 'Stories told ' },
+  { n: '2', l: 'Years behind the lens' },
+  { n: '4K', l: 'Cinematic, every frame  ' },
 ];
 
 export default function About() {
@@ -28,9 +28,12 @@ export default function About() {
         className="mt-6 max-w-2xl text-mute"
         initial="hidden" whileInView="show" viewport={{ once: true }} variants={reveal}
       >
-        Led by {site.director}, {site.name} {site.suffix} is a Bangalore-based studio crafting cinematic
-        wedding films and photography. Every story is shot and cut like a film — patient, intentional,
-        and built to be watched again and again.
+        At Beyond Frames, we don't fit couples into a template. We're a young team of passionate
+        storytellers before we pick up a camera, we take time to understand you, your journey, and the
+        moments that matter most. Most wedding films follow a formula. We don't. We blend cinematic
+        visuals with authentic moments to create films and photographs that feel personal, emotional,
+        and genuinely yours. Because years from now, we don't want you to remember how your wedding
+        looked we want you to remember how it felt.
       </motion.p>
 
       <div className="mt-14 grid grid-cols-3 gap-6 border-t border-line pt-10">

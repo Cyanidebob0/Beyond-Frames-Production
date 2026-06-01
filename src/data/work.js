@@ -8,15 +8,15 @@
 //   mp4:       'https://.../film.mp4'          // direct file (any CDN / object storage)
 // Photo-only items just have a `thumb` and no source.
 //
-// TODO (videos): every film below currently plays the real self-hosted teaser clip
-// (/work/teaser.mp4). When the full films are uploaded to Google Drive, replace each
-// `mp4: '/work/teaser.mp4'` with `drive: '<share link>'` to stream the real film.
+// All films below are real, self-hosted clips (web-optimized H.264 in /work/).
+// To swap a film, drop a new file in public/work/ and update its `mp4` (or use
+// `drive:`/`youtubeId:` to stream from Google Drive / YouTube instead).
 export const work = [
   { id: 'pramoodh-reeny', title: 'Pramoodh & Reeny', category: 'films', mp4: '/work/pramoodh-reeny.mp4', thumb: '/work/pramoodh-reeny.jpg' },
   { id: 'sharath-wedding', title: 'Sharath Wedding', category: 'films', mp4: '/work/sharath-wedding.mp4', thumb: '/work/sharath-wedding.jpg' },
   { id: 'sharath-reception', title: 'Sharath Reception', category: 'films', mp4: '/work/sharath-reception.mp4', thumb: '/work/sharath-reception.jpg' },
   { id: 'pre-wedding', title: 'Pre-Wedding', category: 'prewedding', mp4: '/work/pre-wedding.mp4', thumb: '/work/pre-wedding.jpg' },
-  { id: 'sharath-reel', title: 'Sharath Reel', category: 'films', mp4: '/work/teaser.mp4', thumb: '/work/sharath-reel.jpg' },
+  { id: 'sharath-reel', title: 'Sharath Reel', category: 'films', mp4: '/work/sharath-reel.mp4', thumb: '/work/sharath-reel.jpg' },
   { id: 'ph-01', title: 'Pramoodh & Reeny', category: 'photography', thumb: '/work/photos/p01.jpg' },
   { id: 'ph-02', title: 'Sharath & Harshita', category: 'photography', thumb: '/work/photos/p02.jpg' },
   { id: 'ph-03', title: 'Pramoodh & Reeny', category: 'photography', thumb: '/work/photos/p03.jpg' },

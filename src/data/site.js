@@ -5,9 +5,9 @@ export const site = {
   tagline: 'Cinematic wedding storytelling, crafted frame by frame.',
   director: 'Jeevan V',
   role: 'Director / Photographer',
-  phone: '7676876134',
-  phoneIntl: '917676876134', // for wa.me / tel
-  email: 'g1234jeevan@gmail.com',
+  phone: '7996123013',
+  phoneIntl: '917996123013', // for wa.me / tel
+  email: 'beyondframesproductions@gmail.com',
   address: '174/1A, Maruthi Nagar, Chikkabanavara PO, Bangalore-90',
   // Hero play-button showreel. Defaults to the local hero clip so it's your own
   // footage. Swap to your reel anytime, e.g. { drive: '<share link>' } or

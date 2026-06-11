@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import Loader from './components/Loader';
 import Nav from './components/Nav';
@@ -89,6 +90,7 @@ export default function App() {
         </AnimatePresence>
       </main>
       <Footer />
+      <Analytics />
     </MotionConfig>
   );
 }
